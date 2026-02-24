@@ -121,3 +121,4 @@ const UsersList = ({ user, setSelectedUser }) => {
 };
 
 export default UsersList;
+// UsersList component handles realtime user status display
