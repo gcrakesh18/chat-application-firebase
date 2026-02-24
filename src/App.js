@@ -6,14 +6,19 @@ import { realtimeDB } from "./firebase";
 import { ref, onDisconnect, set } from "firebase/database";
 
 const App = () => {
+  // Stores currently authenticated user
   const [user, setUser] = useState(null);
+
+  // Stores selected user for active chat
   const [selectedUser, setSelectedUser] = useState(null);
 
   // ------------------------------------
   // BACK BUTTON HANDLER
+  // Handles browser back button navigation
   // ------------------------------------
   useEffect(() => {
     if (selectedUser) {
+      // Push new state when chat opens
       window.history.pushState({ page: "chat" }, "");
     }
   }, [selectedUser]);
@@ -21,30 +26,34 @@ const App = () => {
   useEffect(() => {
     const handleBackButton = () => {
       if (selectedUser) {
+        // If inside chat, go back to users list
         setSelectedUser(null);
         return;
       }
     };
 
     window.onpopstate = handleBackButton;
+
+    // Cleanup event listener
     return () => (window.onpopstate = null);
   }, [selectedUser]);
 
   // ------------------------------------
-  // REALTIME USER PRESENCE (ONLY ONE EFFECT)
+  // REALTIME USER PRESENCE
+  // Tracks online/offline status in Firebase Realtime DB
   // ------------------------------------
   useEffect(() => {
     if (!user) return;
 
     const userRef = ref(realtimeDB, `/status/${user.uid}`);
 
-    // Mark online immediately
+    // Mark user as online immediately after login
     set(userRef, {
       online: true,
       lastSeen: Date.now(),
     });
 
-    // Update last seen every 20 seconds
+    // Keep updating lastSeen timestamp every 20 seconds
     const interval = setInterval(() => {
       set(userRef, {
         online: true,
@@ -52,17 +61,18 @@ const App = () => {
       });
     }, 20000);
 
-    // When user disconnects (browser close/tab close)
+    // Automatically mark user offline when connection drops
     onDisconnect(userRef).set({
       online: false,
       lastSeen: Date.now(),
     });
 
+    // Cleanup interval on logout or component unmount
     return () => clearInterval(interval);
   }, [user]);
 
   // ------------------------------------
-  // RENDER UI
+  // CONDITIONAL RENDERING
   // ------------------------------------
   if (!user) return <Login setUser={setUser} />;
 
