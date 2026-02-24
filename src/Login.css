@@ -1,0 +1,93 @@
+/* FULL SCREEN GRADIENT BACKGROUND */
+.login-container {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+
+  background: linear-gradient(135deg, #4c1d95, #6d28d9, #3b82f6);
+  background-size: 300% 300%;
+  animation: bgAnimation 8s ease infinite;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* ANIMATED BACKGROUND LIGHTS */
+/* Prevent background glow from blocking clicks */
+.login-container::before,
+.login-container::after {
+  pointer-events: none;
+  z-index: 1;
+}
+
+.login-card {
+  position: relative;
+  z-index: 10;
+}
+
+.login-container::before {
+  background: rgba(255, 0, 128, 0.6);
+  top: 10%;
+  left: 10%;
+}
+
+.login-container::after {
+  background: rgba(0, 255, 255, 0.5);
+  bottom: 10%;
+  right: 10%;
+}
+
+/* GLASS CARD */
+.login-card {
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 50px 60px;
+  border-radius: 20px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0px 10px 40px rgba(0,0,0,0.35);
+  animation: fadeIn 1s ease, popUp 0.7s ease-out;
+}
+
+/* Google Button */
+.google-btn {
+  margin-top: 30px;
+  width: 100%;
+  height: 48px;
+  font-size: 17px;
+  border-radius: 12px !important;
+  background-color: #fff !important;
+  color: #4c1d95 !important;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.google-btn:hover {
+  transform: scale(1.05);
+  background-color: #f5f3ff !important;
+}
+
+/* KEYFRAME ANIMATIONS */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popUp {
+  0% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-40px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes bgAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}

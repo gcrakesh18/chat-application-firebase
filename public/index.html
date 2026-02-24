@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <!-- FAVICONS -->
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+
+    <!-- VIEWPORT -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- APP NAME -->
+    <title>QuickChat – Fast, Clean & Modern Messaging</title>
+
+    <!-- THEME COLOR -->
+    <meta name="theme-color" content="#4c1d95" />
+
+    <!-- DESCRIPTION -->
+    <meta
+      name="description"
+      content="QuickChat – A fast, secure & modern real-time chat app built with Firebase and React."
+    />
+
+    <!-- GOOGLE FONTS (Poppins - Youth Style) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- SMOOTH FADE-IN LOADING -->
+    <style>
+      body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background: #1a103d; /* fallback background */
+        animation: fadeIn 0.7s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Center loading message for 1s before React loads */
+      #root::before {
+        content: "Loading QuickChat...";
+        color: #fff;
+        font-size: 20px;
+        font-weight: 500;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0.4;
+        animation: pulse 1.5s infinite ease-in-out;
+      }
+
+      @keyframes pulse {
+        0% { opacity: 0.2; }
+        50% { opacity: 0.8; }
+        100% { opacity: 0.2; }
+      }
+    </style>
+
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  </head>
+
+  <body>
+    <noscript>You need to enable JavaScript to run QuickChat.</noscript>
+
+    <!-- ROOT APP -->
+    <div id="root"></div>
+  </body>
+</html>
